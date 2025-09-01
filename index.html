@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <title>小祥名片</title>
+  <style>
+    .card {
+      background-color: lightblue;
+      border: 2px solid black;
+      border-radius: 10px;
+      padding: 15px;
+      width: 250px;
+      margin: 50px auto;
+      text-align: center;
+      box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.2); /* ✅ 添加阴影 */
+      transition: transform 0.3s, box-shadow 0.3s;  /* ✅ 悬停过渡 */
+    }
+
+    .card:hover {
+      transform: scale(1.05); /* ✅ 放大一点 */
+      box-shadow: 4px 4px 15px rgba(0, 0, 0, 0.4); /* ✅ 阴影加深 */
+    }
+
+    .avatar {
+      width: 100px;
+      height: 100px;
+      border-radius: 50%;
+    }
+
+    .name {
+      font-size: 20px;
+      font-weight: bolder;
+      color: black;
+      margin: 10px 0;
+    }
+
+    .follow-btn {
+      padding: 8px 16px;
+      background-color: #007bff;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      font-size: 16px;
+      transition: background-color 0.3s;
+    }
+
+    .follow-btn:hover {
+      background-color: #0056b3;
+    }
+  </style>
+</head>
+<body>
+
+<div class="card">
+  <img src="https://tse3.mm.bing.net/th/id/OIP.NtX4GuvDZhQyih8bHOrq6QHaHa?r=0&pid=ImgDet&w=474&h=474&rs=1&o=7&rm=3" class="avatar">
+  <p class="name">小祥</p>
+  <a href="https://bilibili.com" class="follow-btn">关注我</a> <!-- 改这里 -->
+</div>
+
+
+</body>
+</html>
