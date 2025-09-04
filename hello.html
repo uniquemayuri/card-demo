@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <title>个人信息卡片</title>
+    <style>
+        p {
+            font-family: "微软雅黑";
+        }
+        img {
+            width: 150px;
+            border: 1px solid blue;
+        }
+        button {
+            background-color: blue;
+            color: white;
+            padding: 8px 16px;
+            border: none;
+            border-radius: 5px;
+        }
+        button:hover {
+            background-color: orange;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <h1>丰川祥子</h1>
+    <p>羽丘女子学园高中1年级。曾是CRYCHIC的键盘手。经常在学校音乐教室弹钢琴。</p>
+    <img src="https://tse4.mm.bing.net/th/id/OIP.dWr9O2EcijC7aky0b49HrAAAAA?r=0&cb=ucfimgc2&rs=1&pid=ImgDetMain&o=7&rm=3" alt="画像">
+    <br><br>
+    <button id="callme">联系我</button>
+
+    <script>
+        const call = document.getElementById("callme");
+        call.addEventListener("click", () => {
+            alert("Hello！");
+        });
+    </script>
+</body>
+</html>
