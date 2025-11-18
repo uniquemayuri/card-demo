@@ -1,0 +1,27 @@
+# 生成一个简单的 HTML 文件，包含标题、段落和一个按钮
+html_content = """<!DOCTYPE html>
+<html lang=\"zh\">
+<head>
+    <meta charset=\"UTF-8\">
+    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">
+    <title>GitHub Pages 测试页面</title>
+    <style>
+        body { font-family: Arial, sans-serif; text-align: center; margin-top: 50px; }
+        h1 { color: #4CAF50; }
+        button { padding: 10px 20px; font-size: 16px; background-color: #4CAF50; color: white; border: none; cursor: pointer; }
+        button:hover { background-color: #45a049; }
+    </style>
+</head>
+<body>
+    <h1>欢迎来到我的 GitHub Pages 测试页面</h1>
+    <p>这是一个简单的 HTML 文件，用于测试 GitHub Pages 部署。</p>
+    <button onclick=\"alert('按钮被点击了！')\">点击我</button>
+</body>
+</html>"""
+
+# 保存 HTML 文件
+file_name = "test_page.html"
+with open(file_name, "w", encoding="utf-8") as f:
+    f.write(html_content)
+
+print(f"HTML 文件已生成: {file_name}")
