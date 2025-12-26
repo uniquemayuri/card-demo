@@ -1,0 +1,132 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>俄罗斯方块（本地测试）</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="container">
+    <h1>俄罗斯方块</h1>
+    <div class="game-area">
+      <canvas id="game" width="300" height="600"></canvas>
+      <div class="side">
+        <div class="info">
+          <div class="score-row">得分: <span id="score">0</span></div>
+          <div>等级: <span id="level">1</span></div>
+          <div>行数: <span id="lines">0</span></div>
+          <div>目标: <span id="target">0</span></div>
+          <div>星层: <span id="stars">0</span></div>
+          <div>生命: <span id="hp">100</span>/<span id="maxHp">100</span></div>
+          <div>倒计时: <span id="timer">120</span>s</div>
+          <div>金币: <span id="coins">0</span></div>
+          <div id="currentTask" style="margin-top:8px;color:#bfeecf"></div>
+          <div>商店等级: <span id="shopLevel">1</span></div>
+        </div>
+        <div class="next">
+          <div>下一个</div>
+          <canvas id="next" width="120" height="120"></canvas>
+        </div>
+        <div class="controls">
+          <button id="start">开始 / 重新开始</button>
+          <button id="pause">暂停</button>
+          <button id="viewCards">查看卡牌</button>
+        </div>
+        <div class="hint">
+          控制: A 左 / D 右 / S 下(加速) / R 旋转 / Enter 硬降 / Z/X 备用旋转 / 空格 暂停
+        </div>
+      </div>
+    </div>
+    <footer>本地打开此页面进行测试</footer>
+  </div>
+
+  <div id="startScreen" class="overlay">
+    <div class="overlay-inner">
+      <h2>俄罗斯方块</h2>
+      <p>点击开始进入游戏</p>
+      <div style="margin:8px 0;text-align:left">
+        <div>游戏模式：</div>
+        <label><input type="radio" name="mode" value="normal" checked> 常规模式</label><br>
+        <label><input type="radio" name="mode" value="test"> 测试模式（Card-only）</label>
+        <div id="charSelect" style="margin-top:8px">
+          <div>选择角色：</div>
+          <label><input type="radio" name="char" value="superman" checked> 你好超人</label><br>
+          <label><input type="radio" name="char" value="cowboy"> 独眼牛仔</label><br>
+          <label><input type="radio" name="char" value="hunter"> 星际猎人</label>
+        </div>
+        <div id="testClassSelect" style="display:none;margin-top:8px">
+          <div>测试模式：选择卡类</div>
+          <label><input type="radio" name="testClass" value="A" checked> A 类</label>
+          <label><input type="radio" name="testClass" value="B"> B 类</label>
+          <label><input type="radio" name="testClass" value="C"> C 类</label>
+          <label><input type="radio" name="testClass" value="D"> D 类</label>
+        </div>
+      </div>
+      <button id="bigStart">开始</button>
+      <div style="margin-top:8px">
+        <button id="viewLeaderboard">查看排行榜</button>
+      </div>
+      <small>控制: A 左 / D 右 / S 下(加速) / R 旋转 / Enter 硬降 / Z/X 备用旋转 / 空格 暂停</small>
+    </div>
+  </div>
+
+  <div id="leaderboardModal" class="overlay" style="display:none">
+    <div class="overlay-inner">
+      <h3>本地排行榜（第11关得分）</h3>
+      <div id="leaderboardList" style="max-height:240px;overflow:auto"></div>
+      <div style="margin-top:12px"><button id="closeLeaderboard">关闭</button></div>
+    </div>
+  </div>
+
+  <div id="rewardModal" class="overlay" style="display:none">
+    <div class="overlay-inner">
+      <h3>关卡完成！选择一张奖励卡牌</h3>
+      <div id="cardChoices" class="card-choices"></div>
+      <div style="margin-top:12px">
+        <button id="nextLevelBtn" disabled>下一关</button>
+      </div>
+      <small style="display:block;margin-top:8px;color:#9fb4d8">卡牌为被动生效，作用于接下来的关卡。</small>
+    </div>
+  </div>
+
+  <div id="interLevelModal" class="overlay" style="display:none">
+    <div class="overlay-inner">
+      <h3>关卡间界面</h3>
+      <div style="margin:8px 0">金币: <span id="modalCoins">0</span></div>
+      <div style="display:flex;gap:8px;justify-content:center">
+        <button id="btnEnterShop">进入商店</button>
+        <button id="btnNextLevel">下一关</button>
+        <button id="btnViewOwned2">查看卡牌/道具</button>
+      </div>
+    </div>
+  </div>
+
+  <div id="shopModal" class="overlay" style="display:none">
+    <div class="overlay-inner">
+      <h3>商店</h3>
+      <div id="shopItems" style="display:flex;gap:8px;justify-content:center;margin-top:8px"></div>
+      <div style="margin-top:12px">说明：进入商店消耗 3 金币。道具价格：3 金币。卡牌购买（若解锁）价格：2 金币。出售任一卡牌得 +1 金币。</div>
+      <div style="margin-top:12px"><button id="closeShop">关闭</button></div>
+    </div>
+  </div>
+
+  <div id="ownedModal" class="overlay" style="display:none">
+    <div class="overlay-inner">
+      <h3>已拥有卡牌 / 道具</h3>
+      <div id="ownedList" class="card-choices" style="max-height:240px;overflow:auto"></div>
+      <div style="margin-top:12px">
+        <button id="closeOwned">关闭</button>
+      </div>
+    </div>
+  </div>
+  <script src="tetris.js"></script>
+  <!-- 恐龙宠物展示/动画占位 -->
+  <div id="dinoOverlay" class="dino-overlay" style="display:none">
+    <div id="dinoBox" class="dino-box">
+      <div id="dinoImg" class="dino-img">🦖</div>
+      <div id="dinoText" class="dino-text"></div>
+    </div>
+  </div>
+</body>
+</html>

@@ -1,0 +1,76 @@
+* { box-sizing: border-box; }
+html,body{height:100%;margin:0;font-family:Segoe UI, Roboto, Helvetica, Arial, sans-serif;background:#0b1220;color:#e6eef8}
+.container{max-width:900px;margin:24px auto;padding:16px}
+.game-area{display:flex;gap:16px;align-items:flex-start}
+.game-area canvas{background:#0b2633;border:4px solid #173445;display:block;box-shadow:0 8px 24px rgba(20,60,80,0.45), inset 0 0 20px rgba(255,255,255,0.02)}
+.side{width:220px}
+.info{margin-bottom:12px;font-size:16px}
+ .score-row{font-size:28px;font-weight:700;color:#fff;margin-bottom:6px}
+ .score-row #score{color:#ffd34d}
+.next{margin-bottom:12px}
+.controls{display:flex;gap:8px;margin-bottom:12px}
+button{padding:8px 12px;border-radius:6px;border:none;background:#1f6feb;color:white;cursor:pointer}
+button:active{transform:translateY(1px)}
+.hint{font-size:12px;color:#bcd5ff}
+footer{margin-top:12px;color:#9fb4d8;font-size:13px}
+h1{margin:0 0 12px 0}
+
+/* start screen overlay */
+.overlay{position:fixed;inset:0;background:rgba(4,8,15,0.85);display:flex;align-items:center;justify-content:center;z-index:40}
+.overlay-inner{background:linear-gradient(180deg,#071021,#0b1724);padding:28px;border-radius:12px;border:1px solid rgba(255,255,255,0.04);text-align:center;color:#cfe6ff}
+.overlay-inner h2{margin:0 0 8px;font-size:28px}
+.overlay-inner p{margin:0 0 12px}
+.overlay-inner button{padding:10px 20px;font-size:16px}
+
+/* floating score animation */
+.floating-score{position:fixed;pointer-events:none;font-weight:700;color:#ffd34d;text-shadow:0 1px 0 rgba(0,0,0,0.6);transform:translateY(0);transition:transform 800ms ease,opacity 800ms ease}
+.floating-score.hide{opacity:0}
+
+/* reward card styles */
+.card-choices{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-top:8px}
+.card{background:linear-gradient(180deg,#0f2230,#0b1724);border:1px solid rgba(255,255,255,0.05);padding:10px;border-radius:8px;color:#cfe6ff;cursor:pointer;display:flex;flex-direction:column;align-items:center}
+.card.selected{outline:2px solid #ffd34d}
+.card .id{font-weight:700;color:#ffd34d;margin-bottom:6px}
+.card .desc{font-size:12px;color:#9fb4d8}
+
+.controls button#viewCards{background:#2aa5ff}
+
+/* Highlight overrides: make score and target more vivid */
+.score-row{font-size:32px}
+.score-row #score{color:#fff16b !important;font-size:36px;font-weight:900;text-shadow:0 0 10px rgba(255,223,77,0.9)}
+.floating-score{font-size:18px !important;color:#fff16b !important;background:rgba(255,223,77,0.06) !important;padding:6px 10px !important;border-radius:8px !important;text-shadow:0 2px 6px rgba(0,0,0,0.6) !important}
+#target{color:#ff6b6b;font-weight:800;text-shadow:0 0 6px rgba(255,107,107,0.6)}
+
+.overlay-inner h3{margin:0 0 8px;font-size:20px}
+.overlay-inner button{margin:4px}
+.card .actions{margin-top:8px;display:flex;gap:6px}
+
+/* star explosion overlay */
+.star-explosion-overlay{position:fixed;left:0;top:0;right:0;bottom:0;background:radial-gradient(circle at center, rgba(255,250,200,0.08), rgba(255,80,80,0.06));z-index:60;pointer-events:none;animation:starFlash 800ms ease}
+@keyframes starFlash{0%{opacity:0}20%{opacity:1}100%{opacity:0}}
+/* clear animation overlay */
+.clear-overlay{position:absolute;pointer-events:none;border-radius:8px;background:linear-gradient(180deg,rgba(255,255,255,0.06),rgba(100,200,255,0.03));box-shadow:0 8px 40px rgba(50,140,200,0.12);z-index:70}
+
+/* dinosaur pet overlay */
+.dino-overlay{position:fixed;left:50%;bottom:45%;transform:translateX(-50%);z-index:80;pointer-events:none;display:block}
+.dino-box{background:linear-gradient(180deg,#071821,#09232a);padding:8px;border-radius:10px;border:1px solid rgba(255,255,255,0.04);display:flex;align-items:center;gap:8px;color:#dfffe8}
+.dino-img{font-size:40px;transition:transform 300ms ease;text-shadow:0 4px 12px rgba(0,0,0,0.6)}
+.dino-text{font-size:14px;color:#bfeecf}
+.dino-overlay.show .dino-img{transform:scale(1.15)}
+.dino-overlay.feed .dino-img{transform:translateY(-6px) scale(1.05)}
+.dino-overlay.evolve .dino-img{transform:scale(1.5) rotate(-10deg)}
+.dino-overlay.eat .dino-img{transform:translateY(-10px) scale(1.2)}
+.dino-overlay.badge .dino-img{transform:scale(1.3) rotate(10deg)}
+
+/* Stage-specific persistent styles */
+.dino-overlay.stage-baby .dino-box{border-color:rgba(120,200,120,0.12);background:linear-gradient(180deg,#07221a,#082a1f)}
+.dino-overlay.stage-baby .dino-img{font-size:36px}
+.dino-overlay.stage-baby .dino-text{color:#bfeecf}
+
+.dino-overlay.stage-warrior .dino-box{border-color:rgba(200,140,80,0.12);background:linear-gradient(180deg,#2b1608,#351b0b)}
+.dino-overlay.stage-warrior .dino-img{font-size:44px;filter:drop-shadow(0 4px 6px rgba(0,0,0,0.6))}
+.dino-overlay.stage-warrior .dino-text{color:#ffd8a6}
+
+.dino-overlay.stage-legend .dino-box{border-color:rgba(200,80,200,0.14);background:linear-gradient(180deg,#1b0830,#2a0b3a)}
+.dino-overlay.stage-legend .dino-img{font-size:50px;filter:drop-shadow(0 6px 10px rgba(0,0,0,0.7))}
+.dino-overlay.stage-legend .dino-text{color:#ffd1ff}
